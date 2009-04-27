@@ -4,7 +4,11 @@
 	#include <stdio.h>
 
 	#ifdef BAM_DEBUG_VERBOSE
-		#define BAM_TRACE(msg) printf(msg)
+		#define BAM_TRACE(msg) \
+			do                 \
+			{                  \
+				printf(msg);   \
+			}while(0)
 	#else
 		#define BAM_TRACE(msg)
 	#endif

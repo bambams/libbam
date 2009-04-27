@@ -1,5 +1,6 @@
 CC = gcc
 CFLAGS = -Iinclude -g -Wall
+INSTALLDIR = /usr/local/lib
 LD = ld
 LIBS = -l./lib/bam
 NAME = libbam.so
@@ -10,7 +11,7 @@ CC_COMPILE_LIB = $(CC_COMPILE) -fPIC
 CC_LINK = $(CC) $(CFLAGS) $(LIBS)
 CC_LINK_LIB = $(CC) -shared -Wl,-soname,$(NAME)
 
-.PHONY: clean default
+.PHONY: clean default install
 
 default: lib obj $(OUT)
 
@@ -31,4 +32,7 @@ obj/bam_list.o: src/bam_list.c include/bam_list.h
 
 clean:
 	rm -fR lib obj $(OUT)
+
+install: default
+	cp $(OUT) $(INSTALLDIR)
 
