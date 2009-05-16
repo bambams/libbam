@@ -18,16 +18,16 @@
  * along with bamlib.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <bam/bam_free.h>
+#ifndef BAM_TRACE_H
+	#define BAM_TRACE_H
 
-void bam_free(void **ptrptr)
-{
-	assert(ptrptr);
+	#include <stdio.h>
 
-	if(*ptrptr)
-	{
-		free(*ptrptr);
-		*ptrptr = NULL;
-	}
-}
+	#ifdef BAM_DEBUG_VERBOSE
+		#define BAM_TRACE(msg) printf(msg)
+	#else
+		#define BAM_TRACE(msg)
+	#endif
+
+#endif
 

@@ -18,16 +18,13 @@
  * along with bamlib.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <bam/bam_free.h>
+#ifndef BAM_FREE_H
+	#define BAM_FREE_H
 
-void bam_free(void **ptrptr)
-{
-	assert(ptrptr);
+	#include <assert.h>
+	#include <stdlib.h>
 
-	if(*ptrptr)
-	{
-		free(*ptrptr);
-		*ptrptr = NULL;
-	}
-}
+void bam_free(void **);
+
+#endif
 
