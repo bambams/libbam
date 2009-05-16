@@ -22,7 +22,7 @@ obj:
 	mkdir -p obj
 
 $(OUT): obj/bam_circbuf.o obj/bam_free.o obj/bam_list.o
-	$(CC_LINK_LIB) -o $@ $?
+	$(CC_LINK_LIB) $? -o $@
 
 obj/bam_circbuf.o: src/bam_circbuf.c include/bam/bam_circbuf.h
 	$(CC_COMPILE_LIB) -o $@ $<
