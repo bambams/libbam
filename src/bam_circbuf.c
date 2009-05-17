@@ -34,7 +34,7 @@ bam_circbuf *bam_circbuf_create(const int size)
 	if(cbuf->buf == NULL)
 		goto error;
 
-	cbuf->empty = 1;
+	//cbuf->empty = 1;
 	cbuf->end = cbuf->buf;
 	cbuf->size = size;
 	cbuf->start = cbuf->buf;
@@ -78,7 +78,7 @@ void bam_circbuf_destroy(bam_circbuf **cbuf)
 
 	bam_free(&((*cbuf)->buf));
 	bam_free(&((*cbuf)->stage));
-	bam_free(cbuf);
+	bam_free((void **)cbuf);
 }
 
 int bam_circbuf_empty(const bam_circbuf * const cbuf)
@@ -93,6 +93,13 @@ int bam_circbuf_full(const bam_circbuf * const cbuf)
 	assert(cbuf);
 
 	return cbuf->start == cbuf->end + 1 % cbuf->size;
+}
+
+int bam_circbuf_is_staged(const bam_circbuf * const cbuf)
+{
+	assert(cbuf);
+
+	return cbuf->stage != NULL;
 }
 
 int bam_circbuf_is_wrapped(const bam_circbuf * const cbuf)
@@ -142,10 +149,12 @@ void bam_circbuf_moveahead_end(bam_circbuf * const cbuf, const int offset)
 
 	int sublen;
 
-	if((sublen = cbuf->size - bam_circbuf_length_end(cbuf)) < offset)
+//sublen = (26775616 + 50) - 0 - 26775616
+
+	if((sublen = (cbuf->buf + cbuf->size) - cbuf->end - (long)cbuf->buf) > offset)
 		cbuf->end += offset;
 	else
-		cbuf->end = (void *)(long)(offset - sublen);
+		cbuf->end = (void *)(long)(cbuf->buf + offset - sublen);
 }
 
 void bam_circbuf_moveahead_start(bam_circbuf * const cbuf, const int offset)
@@ -155,10 +164,10 @@ void bam_circbuf_moveahead_start(bam_circbuf * const cbuf, const int offset)
 
 	int sublen;
 
-	if((sublen = cbuf->size - bam_circbuf_length_start(cbuf)) < offset)
+	if((sublen = (cbuf->buf + cbuf->size) - cbuf->start - (long)cbuf->buf) > offset)
 		cbuf->start += offset;
 	else
-		cbuf->start = (void *)(long)offset - sublen;
+		cbuf->start = (void *)(long)(cbuf->buf + offset - sublen);
 }
 
 int bam_circbuf_read(bam_circbuf * const cbuf, void * const buf, const int maxlen)

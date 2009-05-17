@@ -22,10 +22,12 @@
 	#define MAIN_H
 
 	#include <bam/bam_circbuf.h>
+	#include <bam/bam_print_exp.h>
 	#include <stdio.h>
 	#include <stdlib.h>
 
 int main(int, char *[]);
+void print_circbuf(const bam_circbuf * const);
 
 #endif
 
