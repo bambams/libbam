@@ -23,7 +23,7 @@ function begin_with_copyright
 	FILE=$1
 
 	echo "/*" 1>"$FILE" && \
-		echo " * bam_list_test is a unit test for a subset of the bamlib library/framework." 1>>"$FILE" && \
+		echo " * bam_list_test is a unit test for a subset of the libbam library/framework." 1>>"$FILE" && \
 		echo " * Copyright (C) 2009 Brandon McCaig" 1>>"$FILE" && \
 		echo " *" 1>>"$FILE" && \
 		echo " * This file is part of bam_list_test." 1>>"$FILE" && \

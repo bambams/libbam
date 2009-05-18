@@ -1,5 +1,5 @@
 /*
- * bam_circbuf_test is a unit test for a subset of the bamlib library/framework.
+ * bam_circbuf_test is a unit test for a subset of the libbam library/framework.
  * Copyright (C) 2009 Brandon McCaig
  *
  * This file is part of bam_circbuf_test.
@@ -65,6 +65,11 @@ int main(int argc, char *argv[])
 		goto failed_to_create_cbuf;
 
 	bam_circbuf_write(cbuf, (void *)text, 40);
+
+	((char *)(cbuf->buf))[40] = NUL;
+	bam_print_exp("%s", (char *)cbuf->buf);
+	bam_print_exp("%lu", strlen((char *)cbuf->buf));
+	printf("\n");
 
 	print_circbuf(cbuf);
 

@@ -1,5 +1,5 @@
 /*
- * bam_list_test is a unit test for a subset of the bamlib library/framework.
+ * bam_list_test is a unit test for a subset of the libbam library/framework.
  * Copyright (C) 2009 Brandon McCaig
  *
  * This file is part of bam_list_test.
