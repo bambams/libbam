@@ -144,7 +144,7 @@ mem_alloc_err:
 	if(list)
 		bam_list_destroy(&list);
 	if(list2)
-		bam_list_destruct(&list, (bam_destroy_func)bam_free);
+		bam_list_destruct(&list2, (bam_destroy_func)bam_free);
 
 	return EXIT_FAILURE;
 }
