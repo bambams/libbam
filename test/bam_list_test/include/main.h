@@ -21,12 +21,16 @@
 #ifndef MAIN_H
 	#define MAIN_H
 
+	#include <bam/bam_foo.h>
+	#include <bam/bam_free.h>
 	#include <bam/bam_list.h>
 	#include <stdio.h>
 	#include <stdlib.h>
 
+void *get_foo_id(void *);
 int main(int, char *[]);
 void print_int(void * const);
+void print_int_ln(void * const);
 
 #endif
 

@@ -23,7 +23,9 @@
 int main(int argc, char *argv[])
 {
 	int x[] = {2, 6, 7, 9, 12};
+	bam_foo *foo;
 	bam_list *list;
+	bam_list *list2;
 	int *y;
 
 	if((list = bam_list_create(&x[0])) == NULL)
@@ -104,15 +106,70 @@ int main(int argc, char *argv[])
 
 	bam_list_destroy(&list);
 
+	if((foo = bam_foo_create()) == NULL)
+		goto mem_alloc_err;
+
+	if((list = bam_list_create((void *)foo)) == NULL)
+		goto mem_alloc_err;
+
+	if((foo = bam_foo_create()) == NULL)
+		goto mem_alloc_err;
+
+	if(!bam_list_push_back(list, (void *)foo))
+		goto mem_alloc_err;
+
+	if((foo = bam_foo_create()) == NULL)
+		goto mem_alloc_err;
+
+	if(!bam_list_push_back(list, (void *)foo))
+		goto mem_alloc_err;
+
+	// bam_list_foreach...
+	bam_list_foreach(list, (bam_fordata_func)bam_foo_print);
+
+	// bam_list_foreach_ret...
+	list2 = bam_list_foreach_ret(list, (bam_fordata_ret_func)get_foo_id, (bam_destroy_func)bam_free);
+	bam_list_foreach(list, (bam_fordata_func)print_int_ln);
+
+	// bam_list_destruct...
+	bam_list_destruct(&list, (bam_destroy_func)bam_foo_destroy);
+
 	return EXIT_SUCCESS;
 
 mem_alloc_err:
 	printf("Out of memory.\n");
+
+	if(foo)
+		bam_foo_destroy(&foo);
+	if(list)
+		bam_list_destroy(&list);
+	if(list2)
+		bam_list_destruct(&list, (bam_destroy_func)bam_free);
+
 	return EXIT_FAILURE;
+}
+
+void *get_foo_id(void *data)
+{
+	int *id = NULL;
+
+	assert(data);
+
+	if((id = (int *)malloc(sizeof(int))) == NULL)
+		return NULL;
+
+	*id = ((bam_foo *)data)->id;
+
+	return id;
 }
 
 void print_int(void * const data)
 {
 	printf("%d", *(const int *)data);
+}
+
+void print_int_ln(void * const data)
+{
+	printf("%d\n", *(const int *)data);
 }
 

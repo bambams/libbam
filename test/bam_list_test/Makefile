@@ -13,8 +13,11 @@ default: obj $(OUT)
 obj:
 	mkdir -p obj
 
-$(OUT): obj/main.o
-	$(CC_LINK) -o $@ obj/main.o
+$(OUT): obj/bam_foo.o obj/main.o
+	$(CC_LINK) -o $@ obj/bam_foo.o obj/main.o
+
+obj/bam_foo.o: ../../src/bam_foo.c ../../include/bam/bam_foo.h
+	$(CC_COMPILE) -o $@ $<
 
 obj/main.o: src/main.c include/main.h
 	$(CC_COMPILE) -o $@ $<

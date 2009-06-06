@@ -27,6 +27,10 @@
 
 struct __bam_list;
 typedef struct __bam_list bam_list;
+typedef void (*bam_destroy_func)(void **);
+//typedef void (*bam_destruct_func)(void **, const bam_destruct_func);
+typedef void (*bam_fordata_func)(void *);
+typedef void *(*bam_fordata_ret_func)(void *);
 
 	#include <bam/bam_trace.h>
 
@@ -39,6 +43,9 @@ struct __bam_list
 const bam_list *bam_list_back(const bam_list *);
 bam_list *bam_list_create(void * const);
 void bam_list_destroy(bam_list **);
+void bam_list_destruct(bam_list **, const bam_destroy_func);
+void bam_list_foreach(bam_list * const, const bam_fordata_func);
+bam_list *bam_list_foreach_ret(bam_list * const, const bam_fordata_ret_func, const bam_destroy_func);
 void bam_list_fprint(FILE *, const bam_list *, void (*bam_list_fprint_data)(FILE *, void * const));
 void bam_list_fprintln(FILE *, const bam_list *, void (*bam_list_fprint_data)(FILE *, void * const));
 const bam_list *bam_list_node(const bam_list *, const int i);

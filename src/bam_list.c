@@ -74,6 +74,104 @@ void bam_list_destroy(bam_list **list)
 	BAM_TRACE("} //bam_list_destroy(list)\n");
 }
 
+void bam_list_destruct(bam_list **list, const bam_destroy_func destroy)
+{
+	BAM_TRACE("bam_list_destruct(list, destroy) {\n");
+
+	bam_list *current = NULL;
+	bam_list *next = NULL;
+
+	assert(list);
+	assert(destroy);
+
+	current = *list;
+
+	while(current != NULL)
+	{
+		next = current->next;
+		destroy((void **)&current->data);
+		free(current);
+		current = next;
+	}
+
+	*list = NULL;
+
+	BAM_TRACE("} //bam_list_destruct(list, destroy)\n");
+}
+
+void bam_list_foreach(bam_list * const list, const bam_fordata_func fordata)
+{
+	BAM_TRACE("bam_list_foreach(list, fordata) {\n");
+
+	bam_list *current = NULL;
+	bam_list *next = NULL;
+
+	assert(list);
+	assert(fordata);
+
+	current = list;
+
+	while(current != NULL)
+	{
+		next = current->next;
+		fordata(current->data);
+		current = next;
+	}
+
+	BAM_TRACE("} //bam_list_foreach(list, fordata)\n");
+}
+
+bam_list *bam_list_foreach_ret(bam_list * const list, const bam_fordata_ret_func fordata_ret, const bam_destroy_func destroy)
+{
+	BAM_TRACE("bam_list_foreach_ret(list, fordata_ret) {\n");
+
+	bam_list *current = NULL;
+	void *data = NULL;
+	bam_list *next = NULL;
+	bam_list *ret = NULL;
+
+	assert(list);
+	assert(fordata_ret);
+	assert(destroy);
+
+	current = list;
+
+	if(current != NULL)
+	{
+		next = current->next;
+
+		if((data = fordata_ret(current->data)) == NULL)
+			goto mem_alloc_err;
+
+		if((ret = bam_list_create(data)) == NULL)
+			goto mem_alloc_err;
+
+		current = next;
+
+		while(current != NULL)
+		{
+			next = current->next;
+
+			if((data = fordata_ret(current->data)) == NULL)
+				goto mem_alloc_err;
+
+			if(!bam_list_push_back(ret, data))
+				goto mem_alloc_err;
+
+			current = next;
+		}
+	}
+
+	goto end;
+
+mem_alloc_err:
+	if(ret)
+		bam_list_destruct(&ret, destroy);
+
+end:
+	BAM_TRACE("} //bam_list_foreach_ret(list, fordata_ret)\n");
+}
+
 void bam_list_fprint(FILE * stream, const bam_list *list, void (*bam_list_fprint_data)(FILE *, void * const))
 {
 	BAM_TRACE("bam_list_fprint(stream, list, bam_list_fprint_data) {\n");
