@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
 		goto mem_alloc_err;
 
 	if((list = bam_list_create((void *)foo)) == NULL)
-		goto mem_alloc_err;
+		goto mem_alloc_err_foo_list;
 
 	if((foo = bam_foo_create()) == NULL)
 		goto mem_alloc_err;
@@ -128,21 +128,25 @@ int main(int argc, char *argv[])
 	bam_list_foreach(list, (bam_fordata_func)bam_foo_print);
 
 	// bam_list_foreach_ret...
-	list2 = bam_list_foreach_ret(list, (bam_fordata_ret_func)get_foo_id, (bam_destroy_func)bam_free);
-	bam_list_foreach(list, (bam_fordata_func)print_int_ln);
+	if((list2 = bam_list_foreach_ret(list, (bam_fordata_ret_func)get_foo_id, (bam_destroy_func)bam_free)) == NULL)
+		goto mem_alloc_err;
+	bam_list_foreach(list2, (bam_fordata_func)print_int_ln);
 
 	// bam_list_destruct...
 	bam_list_destruct(&list, (bam_destroy_func)bam_foo_destroy);
+	bam_list_destruct(&list2, (bam_destroy_func)bam_free);
 
 	return EXIT_SUCCESS;
+
+mem_alloc_err_foo_list:
+	if(foo)
+		bam_foo_destroy(&foo);
 
 mem_alloc_err:
 	printf("Out of memory.\n");
 
-	if(foo)
-		bam_foo_destroy(&foo);
 	if(list)
-		bam_list_destroy(&list);
+		bam_list_destruct(&list, (bam_destroy_func)bam_foo_destroy);
 	if(list2)
 		bam_list_destruct(&list2, (bam_destroy_func)bam_free);
 

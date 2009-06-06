@@ -169,34 +169,35 @@ mem_alloc_err:
 		bam_list_destruct(&ret, destroy);
 
 end:
+	return ret; // Should be NULL if bam_list_destruct'd or bam_list_destroy'd.
 	BAM_TRACE("} //bam_list_foreach_ret(list, fordata_ret)\n");
 }
 
-void bam_list_fprint(FILE * stream, const bam_list *list, void (*bam_list_fprint_data)(FILE *, void * const))
+void bam_list_fprint(FILE * stream, const bam_list *list, const bam_list_fprint_data_func fprint_data)
 {
-	BAM_TRACE("bam_list_fprint(stream, list, bam_list_fprint_data) {\n");
+	BAM_TRACE("bam_list_fprint(stream, list, fprint_data) {\n");
 
 	assert(list);
 
-	bam_list_fprint_data(stream, list->data);
+	fprint_data(stream, list->data);
 
 	while((list = list->next) != NULL)
 	{
 		putc(',', stream);
-		bam_list_fprint_data(stream, list->data);
+		fprint_data(stream, list->data);
 	}
 
-	BAM_TRACE("} //bam_list_fprint(stream, list, bam_list_fprint_data)\n");
+	BAM_TRACE("} //bam_list_fprint(stream, list, fprint_data)\n");
 }
 
-void bam_list_fprintln(FILE * stream, const bam_list *list, void (*bam_list_fprint_data)(FILE *, void * const))
+void bam_list_fprintln(FILE * stream, const bam_list *list, const bam_list_fprint_data_func fprint_data)
 {
-	BAM_TRACE("bam_list_fprintln(stream, list, bam_list_fprint_data) {\n");
+	BAM_TRACE("bam_list_fprintln(stream, list, fprint_data) {\n");
 
-	bam_list_fprint(stream, list, bam_list_fprint_data);
+	bam_list_fprint(stream, list, fprint_data);
 	putc('\n', stream);
 
-	BAM_TRACE("} //bam_list_fprintln(stream, list, bam_list_fprint_data)\n");
+	BAM_TRACE("} //bam_list_fprintln(stream, list, fprint_data)\n");
 }
 
 const bam_list *bam_list_node(const bam_list *list, const int i)
@@ -311,31 +312,31 @@ void *bam_list_pop_node(bam_list **list, const int i)
 	return data;
 }
 
-void bam_list_print(const bam_list *list, void (*bam_list_print_data)(void * const))
+void bam_list_print(const bam_list *list, const bam_list_print_data_func print_data)
 {
-	BAM_TRACE("bam_list_print(list, bam_list_print_data) {\n");
+	BAM_TRACE("bam_list_print(list, print_data) {\n");
 
 	assert(list);
 
-	bam_list_print_data(list->data);
+	print_data(list->data);
 
 	while((list = list->next) != NULL)
 	{
 		putc(',', stdout);
-		bam_list_print_data(list->data);
+		print_data(list->data);
 	}
 
-	BAM_TRACE("} //bam_list_print(list, bam_list_print_data)\n");
+	BAM_TRACE("} //bam_list_print(list, print_data)\n");
 }
 
-void bam_list_println(const bam_list *list, void (*bam_list_print_data)(void * const))
+void bam_list_println(const bam_list *list, const bam_list_print_data_func print_data)
 {
-	BAM_TRACE("bam_list_println(list, bam_list_print_data) {\n");
+	BAM_TRACE("bam_list_println(list, print_data) {\n");
 
-	bam_list_print(list, bam_list_print_data);
+	bam_list_print(list, print_data);
 	putc('\n', stdout);
 
-	BAM_TRACE("} //bam_list_println(list, bam_list_print_data)\n");
+	BAM_TRACE("} //bam_list_println(list, print_data)\n");
 }
 
 int bam_list_push_back(bam_list *list, void * const data)
