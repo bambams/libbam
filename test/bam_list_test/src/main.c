@@ -23,10 +23,11 @@
 int main(int argc, char *argv[])
 {
 	int x[] = {2, 6, 7, 9, 12};
-	bam_foo *foo;
-	bam_list *list;
-	bam_list *list2;
-	int *y;
+	bam_foo *foo = NULL;
+	bam_list *list = NULL;
+	bam_list *list2 = NULL;
+	void *sum = NULL;
+	int *y = NULL;
 
 	if((list = bam_list_create(&x[0])) == NULL)
 		goto mem_alloc_err;
@@ -127,10 +128,15 @@ int main(int argc, char *argv[])
 	// bam_list_foreach...
 	bam_list_foreach(list, (bam_fordata_func)bam_foo_print);
 
-	// bam_list_foreach_ret...
-	if((list2 = bam_list_foreach_ret(list, (bam_fordata_ret_func)get_foo_id, (bam_destroy_func)bam_free)) == NULL)
+	// bam_list_foreach_ret_list...
+	if((list2 = bam_list_foreach_ret_list(list, (bam_fordata_ret_func)get_foo_id, (bam_destroy_func)bam_free)) == NULL)
 		goto mem_alloc_err;
 	bam_list_foreach(list2, (bam_fordata_func)print_int_ln);
+
+	// bam_list_foreach_ret_sum...
+	if((sum = bam_list_foreach_ret_sum(list, (bam_fordata_ret_sum_func)sum_int, (bam_destroy_func)bam_free)) == NULL)
+		goto mem_alloc_err;
+	printf("sum=%d\n", *(int *)sum);
 
 	// bam_list_destruct...
 	bam_list_destruct(&list, (bam_destroy_func)bam_foo_destroy);
@@ -175,5 +181,21 @@ void print_int(void * const data)
 void print_int_ln(void * const data)
 {
 	printf("%d\n", *(const int *)data);
+}
+
+void *sum_int(void *ret, void * const data)
+{
+	assert(data);
+
+	if(!ret)
+	{
+		if((ret = malloc(sizeof(int))) == NULL)
+			return NULL;
+		*(int *)ret = 0;
+	}
+
+	*(int *)ret = *(int *)ret + *(int *)data;
+
+	return ret;
 }
 

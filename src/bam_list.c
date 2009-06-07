@@ -121,9 +121,45 @@ void bam_list_foreach(bam_list * const list, const bam_fordata_func fordata)
 	BAM_TRACE("} //bam_list_foreach(list, fordata)\n");
 }
 
-bam_list *bam_list_foreach_ret(bam_list * const list, const bam_fordata_ret_func fordata_ret, const bam_destroy_func destroy)
+void *bam_list_foreach_ret_sum(bam_list * const list, const bam_fordata_ret_sum_func fordata_ret_sum, const bam_destroy_func destroy)
 {
-	BAM_TRACE("bam_list_foreach_ret(list, fordata_ret) {\n");
+	BAM_TRACE("bam_list_foreach_ret_sum(list, fordata_ret_sum, destroy) {\n");
+
+	bam_list *current = NULL;
+	bam_list *next = NULL;
+	void *ret = NULL;
+
+	assert(list);
+	assert(fordata_ret_sum);
+	assert(destroy);
+
+	current = list;
+
+	while(current != NULL)
+	{
+		next = current->next;
+
+		if((ret = fordata_ret_sum(ret, current->data)) == NULL)
+			goto mem_alloc_err;
+
+		current = next;
+	}
+
+	goto end;
+
+mem_alloc_err:
+	if(ret)
+		destroy(&ret);
+
+end:
+	BAM_TRACE("} //bam_list_foreach_ret_sum(list, fordata_ret_sum, destroy)\n");
+
+	return ret; // Should be NULL if destroy'd.
+}
+
+bam_list *bam_list_foreach_ret_list(bam_list * const list, const bam_fordata_ret_func fordata_ret, const bam_destroy_func destroy)
+{
+	BAM_TRACE("bam_list_foreach_ret_list(list, fordata_ret, destroy) {\n");
 
 	bam_list *current = NULL;
 	void *data = NULL;
@@ -169,8 +205,9 @@ mem_alloc_err:
 		bam_list_destruct(&ret, destroy);
 
 end:
+	BAM_TRACE("} //bam_list_foreach_ret_list(list, fordata_ret, destroy)\n");
+
 	return ret; // Should be NULL if bam_list_destruct'd or bam_list_destroy'd.
-	BAM_TRACE("} //bam_list_foreach_ret(list, fordata_ret)\n");
 }
 
 void bam_list_fprint(FILE * stream, const bam_list *list, const bam_list_fprint_data_func fprint_data)

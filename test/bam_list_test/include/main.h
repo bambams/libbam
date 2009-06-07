@@ -31,6 +31,7 @@ void *get_foo_id(void *);
 int main(int, char *[]);
 void print_int(void * const);
 void print_int_ln(void * const);
+void *sum_int(void *, void * const);
 
 #endif
 

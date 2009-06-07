@@ -32,6 +32,7 @@ typedef void (*bam_destroy_func)(void **);
 //typedef void (*bam_destruct_func)(void **, const bam_destruct_func);
 typedef void (*bam_fordata_func)(void *);
 typedef void *(*bam_fordata_ret_func)(void *);
+typedef void *(*bam_fordata_ret_sum_func)(void *, void *);
 typedef void (*bam_list_fprint_data_func)(FILE *, void * const);
 typedef void (*bam_list_print_data_func)(void * const);
 
@@ -49,7 +50,8 @@ bam_list *bam_list_create(void * const);
 void bam_list_destroy(bam_list **);
 void bam_list_destruct(bam_list **, const bam_destroy_func);
 void bam_list_foreach(bam_list * const, const bam_fordata_func);
-bam_list *bam_list_foreach_ret(bam_list * const, const bam_fordata_ret_func, const bam_destroy_func);
+void *bam_list_foreach_ret_sum(bam_list * const, const bam_fordata_ret_sum_func, const bam_destroy_func);
+bam_list *bam_list_foreach_ret_list(bam_list * const, const bam_fordata_ret_func, const bam_destroy_func);
 void bam_list_fprint(FILE *, const bam_list *, const bam_list_fprint_data_func);
 void bam_list_fprintln(FILE *, const bam_list *, const bam_list_fprint_data_func);
 const bam_list *bam_list_node(const bam_list *, const int i);
