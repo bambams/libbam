@@ -1,6 +1,7 @@
 CC = gcc
 CFLAGS = -Iinclude -g -Wall
-INSTDIR = /usr/local/lib
+INST_INCDIR = /usr/include
+INST_LIBDIR = /usr/local/lib
 LD = ld
 LIBS = -l./lib/bam
 NAME = libbam.so
@@ -11,7 +12,7 @@ CC_COMPILE_LIB = $(CC_COMPILE) -fPIC
 CC_LINK = $(CC) $(CFLAGS) $(LIBS)
 CC_LINK_LIB = $(CC) -shared -Wl,-soname,$(NAME)
 
-.PHONY: clean default install
+.PHONY: clean default install instdev veryclean
 
 default: lib obj $(OUT)
 
@@ -37,6 +38,12 @@ clean:
 	rm -fR lib obj $(OUT)
 
 install:
-	cp $(OUT) $(INSTDIR)
+	cp $(OUT) $(INST_LIBDIR)
 	ldconfig
+
+instdev:
+	cp -R include/bam $(INST_INCDIR)
+
+veryclean: clean
+	rm -fR $(INST_LIBDIR)/$(OUT) $(INST_INCDIR)/bam
 
