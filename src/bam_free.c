@@ -18,7 +18,7 @@
  * along with libbam.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <bam/bam_free.h>
+#include <bam/free.h>
 
 void bam_free(void **ptrptr)
 {

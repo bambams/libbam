@@ -24,13 +24,13 @@ obj:
 $(OUT): obj/bam_circbuf.o obj/bam_free.o obj/bam_list.o
 	$(CC_LINK_LIB) $? -o $@
 
-obj/bam_circbuf.o: src/bam_circbuf.c include/bam/bam_circbuf.h
+obj/bam_circbuf.o: src/bam_circbuf.c include/bam/circbuf.h
 	$(CC_COMPILE_LIB) -o $@ $<
 
-obj/bam_free.o: src/bam_free.c include/bam/bam_free.h
+obj/bam_free.o: src/bam_free.c include/bam/free.h
 	$(CC_COMPILE_LIB) -o $@ $<
 
-obj/bam_list.o: src/bam_list.c include/bam/bam_list.h
+obj/bam_list.o: src/bam_list.c include/bam/list.h
 	$(CC_COMPILE_LIB) -o $@ $<
 
 clean:

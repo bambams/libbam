@@ -21,8 +21,8 @@
 #ifndef MAIN_H
 	#define MAIN_H
 
-	#include <bam/bam_circbuf.h>
-	#include <bam/bam_print_exp.h>
+	#include <bam/circbuf.h>
+	#include <bam/print_exp.h>
 	#include <stdio.h>
 	#include <stdlib.h>
 

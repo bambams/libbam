@@ -36,8 +36,8 @@ typedef void *(*bam_fordata_ret_sum_func)(void *, void *);
 typedef void (*bam_list_fprint_data_func)(FILE *, void * const);
 typedef void (*bam_list_print_data_func)(void * const);
 
-	#include <bam/bam_free.h>
-	#include <bam/bam_trace.h>
+	#include <bam/free.h>
+	#include <bam/trace.h>
 
 struct __bam_list
 {

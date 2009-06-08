@@ -33,7 +33,7 @@ const int BAM_CIRCBUF_FULL = 0x2;
 struct __bam_circbuf;
 typedef struct __bam_circbuf bam_circbuf;
 
-	#include <bam/bam_free.h>
+	#include <bam/free.h>
 
 struct __bam_circbuf
 {

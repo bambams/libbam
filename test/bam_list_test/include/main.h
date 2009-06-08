@@ -21,9 +21,9 @@
 #ifndef MAIN_H
 	#define MAIN_H
 
-	#include <bam/bam_foo.h>
-	#include <bam/bam_free.h>
-	#include <bam/bam_list.h>
+	#include <bam/foo.h>
+	#include <bam/free.h>
+	#include <bam/list.h>
 	#include <stdio.h>
 	#include <stdlib.h>
 

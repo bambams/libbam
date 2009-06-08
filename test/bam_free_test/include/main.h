@@ -21,7 +21,7 @@
 #ifndef MAIN_H
 	#define MAIN_H
 
-	#include <bam/bam_free.h>
+	#include <bam/free.h>
 	#include <stdio.h>
 	#include <stdlib.h>
 

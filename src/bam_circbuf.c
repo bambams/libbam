@@ -18,7 +18,7 @@
  * along with libbam.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <bam/bam_circbuf.h>
+#include <bam/circbuf.h>
 
 bam_circbuf *bam_circbuf_create(const int size)
 {

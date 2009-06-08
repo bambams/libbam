@@ -18,7 +18,7 @@
  * along with libbam.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <bam/bam_list.h>
+#include <bam/list.h>
 
 const bam_list *bam_list_back(const bam_list *list)
 {

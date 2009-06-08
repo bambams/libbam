@@ -18,7 +18,7 @@
  * along with libbam.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <bam/bam_foo.h>
+#include <bam/foo.h>
 
 int bam_foo_last_id = -1;
 
