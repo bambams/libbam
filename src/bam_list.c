@@ -458,7 +458,7 @@ int bam_list_push_node(bam_list **list, const int i, void * const data)
 	return 1;
 }
 
-void bam_list_remove_back(bam_list **list)
+void bam_list_remove_back(bam_list **list, const bam_destroy_func destroy)
 {
 	BAM_TRACE("bam_list_remove_back(list) {\n");
 
@@ -481,12 +481,14 @@ void bam_list_remove_back(bam_list **list)
 	else
 		previous->next = current->next;
 
+	if(destroy)
+		destroy(current->data);
 	free(current);
 
 	BAM_TRACE("} //bam_list_remove_back(list)\n");
 }
 
-void bam_list_remove_front(bam_list **list)
+void bam_list_remove_front(bam_list **list, const bam_destroy_func destroy)
 {
 	BAM_TRACE("bam_list_remove_front(list) {\n");
 
@@ -502,12 +504,14 @@ void bam_list_remove_front(bam_list **list)
 	else
 		*list = current->next;
 
+	if(destroy)
+		destroy(current->data);
 	free(current);
 
 	BAM_TRACE("} //bam_list_remove_front(list)\n");
 }
 
-void bam_list_remove_node(bam_list **list, const int i)
+void bam_list_remove_node(bam_list **list, const int i, const bam_destroy_func destroy)
 {
 	BAM_TRACE("bam_list_remove_node(list, i) {\n");
 
@@ -533,6 +537,8 @@ void bam_list_remove_node(bam_list **list, const int i)
 	else
 		previous->next = current->next;
 
+	if(destroy)
+		destroy(current->data);
 	free(current);
 
 	BAM_TRACE("} //bam_list_remove_node(list, i)\n");

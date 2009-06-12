@@ -63,9 +63,9 @@ void bam_list_println(const bam_list *, const bam_list_print_data_func);
 int bam_list_push_back(bam_list *, void * const);
 int bam_list_push_front(bam_list **, void * const);
 int bam_list_push_node(bam_list **, const int, void * const);
-void bam_list_remove_back(bam_list **);
-void bam_list_remove_front(bam_list **);
-void bam_list_remove_node(bam_list **, const int);
+void bam_list_remove_back(bam_list **, const bam_destroy_func);
+void bam_list_remove_front(bam_list **, const bam_destroy_func);
+void bam_list_remove_node(bam_list **, const int, const bam_destroy_func);
 int bam_list_size(const bam_list *);
 
 #endif
