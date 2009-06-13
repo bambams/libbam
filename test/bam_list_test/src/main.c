@@ -50,8 +50,8 @@ int main(int argc, char *argv[])
 	printf("list=");
 	bam_list_println(list, print_int);
 	printf("size=%d\n", bam_list_size(list));
-	printf("First index of %d: %d\n", x[3], bam_list_find_first(list, &x[3], compare_int));
-	printf("Last index of %d: %d\n", x[3], bam_list_find_last(list, &x[3], compare_int));
+	printf("First index of %d: %d\n", x[3], bam_list_find_first_index(list, &x[3], compare_int));
+	printf("Last index of %d: %d\n", x[3], bam_list_find_last_index(list, &x[3], compare_int));
 
 	if((y = (int *)bam_list_pop_back(&list)) != NULL)
 		printf("back=%d\n", *y);

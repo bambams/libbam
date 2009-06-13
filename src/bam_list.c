@@ -99,9 +99,9 @@ void bam_list_destruct(bam_list **list, const bam_func_destroy destroy)
 	BAM_TRACE("} //bam_list_destruct(list, destroy)\n");
 }
 
-int bam_list_find_first(const bam_list * const list, void * const data, const bam_func_compare compare)
+int bam_list_find_first_index(const bam_list * const list, void * const data, const bam_func_compare compare)
 {
-    BAM_TRACE("bam_list_find_first(list, data, compare) {\n");
+    BAM_TRACE("bam_list_find_first_index(list, data, compare) {\n");
 
 	int i = 0;
 	const bam_list *current = NULL;
@@ -122,14 +122,37 @@ int bam_list_find_first(const bam_list * const list, void * const data, const ba
 	i = -1;
 
 end:
-	BAM_TRACE("} //bam_list_find_first(list, data, compare)\n");
+	BAM_TRACE("} //bam_list_find_first_index(list, data, compare)\n");
 
 	return i;
 }
 
-int bam_list_find_last(const bam_list * const list, void * const data, const bam_func_compare compare)
+bam_list *bam_list_find_first_node(const bam_list * const list, void * const data, const bam_func_compare compare)
 {
-    BAM_TRACE("bam_list_find_last(list, data, compare) {\n");
+    BAM_TRACE("bam_list_find_first_node(list, data, compare) {\n");
+
+	const bam_list *current = NULL;
+
+	assert(list);
+	assert(compare);
+
+	current = (const bam_list *)list;
+
+	while(current != NULL)
+	{
+		if(compare(current->data, data) == 0)
+			break;
+		current = current->next;
+	}
+
+	BAM_TRACE("} //bam_list_find_first_node(list, data, compare)\n");
+
+	return current;
+}
+
+int bam_list_find_last_index(const bam_list * const list, void * const data, const bam_func_compare compare)
+{
+    BAM_TRACE("bam_list_find_last_index(list, data, compare) {\n");
 
 	int i = -1;
 	int j = 0;
@@ -144,14 +167,39 @@ int bam_list_find_last(const bam_list * const list, void * const data, const bam
 	{
 		if(compare(current->data, data) == 0)
 			i = j;
+
 		current = current->next;
 		j++;
 	}
 
-end:
-	BAM_TRACE("} //bam_list_find_last(list, data, compare)\n");
+	BAM_TRACE("} //bam_list_find_last_index(list, data, compare)\n");
 
 	return i;
+}
+
+bam_list *bam_list_find_last_node(const bam_list * const list, void * const data, const bam_func_compare compare)
+{
+    BAM_TRACE("bam_list_find_last_node(list, data, compare) {\n");
+
+	const bam_list *current = NULL;
+	const bam_list *match = NULL;
+
+	assert(list);
+	assert(compare);
+
+	current = (const bam_list *)list;
+
+	while(current != NULL)
+	{
+		if(compare(current->data, data) == 0)
+			match = current;
+
+		current = current->next;
+	}
+
+	BAM_TRACE("} //bam_list_find_last_node(list, data, compare)\n");
+
+	return (bam_list *)match;
 }
 
 void bam_list_foreach(bam_list * const list, const bam_func_fordata fordata)
