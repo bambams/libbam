@@ -50,6 +50,8 @@ int main(int argc, char *argv[])
 	printf("list=");
 	bam_list_println(list, print_int);
 	printf("size=%d\n", bam_list_size(list));
+	printf("First index of %d: %d\n", x[3], bam_list_find_first(list, &x[3], compare_int));
+	printf("Last index of %d: %d\n", x[3], bam_list_find_last(list, &x[3], compare_int));
 
 	if((y = (int *)bam_list_pop_back(&list)) != NULL)
 		printf("back=%d\n", *y);
@@ -126,21 +128,21 @@ int main(int argc, char *argv[])
 		goto mem_alloc_err;
 
 	// bam_list_foreach...
-	bam_list_foreach(list, (bam_fordata_func)bam_foo_print);
+	bam_list_foreach(list, (bam_func_fordata)bam_foo_print);
 
 	// bam_list_foreach_ret_list...
-	if((list2 = bam_list_foreach_ret_list(list, (bam_fordata_ret_func)get_foo_id, (bam_destroy_func)bam_free)) == NULL)
+	if((list2 = bam_list_foreach_ret_list(list, (bam_func_fordata_ret)get_foo_id, (bam_func_destroy)bam_free)) == NULL)
 		goto mem_alloc_err;
-	bam_list_foreach(list2, (bam_fordata_func)print_int_ln);
+	bam_list_foreach(list2, (bam_func_fordata)print_int_ln);
 
 	// bam_list_foreach_ret_sum...
-	if((sum = bam_list_foreach_ret_sum(list, (bam_fordata_ret_sum_func)sum_int, (bam_destroy_func)bam_free)) == NULL)
+	if((sum = bam_list_foreach_ret_sum(list, (bam_func_fordata_ret_sum)sum_int, (bam_func_destroy)bam_free)) == NULL)
 		goto mem_alloc_err;
 	printf("sum=%d\n", *(int *)sum);
 
 	// bam_list_destruct...
-	bam_list_destruct(&list, (bam_destroy_func)bam_foo_destroy);
-	bam_list_destruct(&list2, (bam_destroy_func)bam_free);
+	bam_list_destruct(&list, (bam_func_destroy)bam_foo_destroy);
+	bam_list_destruct(&list2, (bam_func_destroy)bam_free);
 
 	return EXIT_SUCCESS;
 
@@ -152,11 +154,24 @@ mem_alloc_err:
 	printf("Out of memory.\n");
 
 	if(list)
-		bam_list_destruct(&list, (bam_destroy_func)bam_foo_destroy);
+		bam_list_destruct(&list, (bam_func_destroy)bam_foo_destroy);
 	if(list2)
-		bam_list_destruct(&list2, (bam_destroy_func)bam_free);
+		bam_list_destruct(&list2, (bam_func_destroy)bam_free);
 
 	return EXIT_FAILURE;
+}
+
+bam_compare compare_int(void * const lhs, void * const rhs)
+{
+	int a = *(int *)lhs;
+	int b = *(int *)rhs;
+
+	if(a == b)
+		return BAM_COMPARE_EQ;
+	else if(a < b)
+		return BAM_COMPARE_LT;
+	else// if(a > b)
+		return BAM_COMPARE_GT;
 }
 
 void *get_foo_id(void *data)

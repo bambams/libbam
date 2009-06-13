@@ -74,7 +74,7 @@ void bam_list_destroy(bam_list **list)
 	BAM_TRACE("} //bam_list_destroy(list)\n");
 }
 
-void bam_list_destruct(bam_list **list, const bam_destroy_func destroy)
+void bam_list_destruct(bam_list **list, const bam_func_destroy destroy)
 {
 	BAM_TRACE("bam_list_destruct(list, destroy) {\n");
 
@@ -99,7 +99,62 @@ void bam_list_destruct(bam_list **list, const bam_destroy_func destroy)
 	BAM_TRACE("} //bam_list_destruct(list, destroy)\n");
 }
 
-void bam_list_foreach(bam_list * const list, const bam_fordata_func fordata)
+int bam_list_find_first(const bam_list * const list, void * const data, const bam_func_compare compare)
+{
+    BAM_TRACE("bam_list_find_first(list, data, compare) {\n");
+
+	int i = 0;
+	const bam_list *current = NULL;
+
+	assert(list);
+	assert(compare);
+
+	current = (const bam_list *)list;
+
+	while(current != NULL)
+	{
+		if(compare(current->data, data) == 0)
+			goto end;
+		current = current->next;
+		i++;
+	}
+
+	i = -1;
+
+end:
+	BAM_TRACE("} //bam_list_find_first(list, data, compare)\n");
+
+	return i;
+}
+
+int bam_list_find_last(const bam_list * const list, void * const data, const bam_func_compare compare)
+{
+    BAM_TRACE("bam_list_find_last(list, data, compare) {\n");
+
+	int i = -1;
+	int j = 0;
+	const bam_list *current = NULL;
+
+	assert(list);
+	assert(compare);
+
+	current = (const bam_list *)list;
+
+	while(current != NULL)
+	{
+		if(compare(current->data, data) == 0)
+			i = j;
+		current = current->next;
+		j++;
+	}
+
+end:
+	BAM_TRACE("} //bam_list_find_last(list, data, compare)\n");
+
+	return i;
+}
+
+void bam_list_foreach(bam_list * const list, const bam_func_fordata fordata)
 {
 	BAM_TRACE("bam_list_foreach(list, fordata) {\n");
 
@@ -121,7 +176,7 @@ void bam_list_foreach(bam_list * const list, const bam_fordata_func fordata)
 	BAM_TRACE("} //bam_list_foreach(list, fordata)\n");
 }
 
-void *bam_list_foreach_ret_sum(bam_list * const list, const bam_fordata_ret_sum_func fordata_ret_sum, const bam_destroy_func destroy)
+void *bam_list_foreach_ret_sum(bam_list * const list, const bam_func_fordata_ret_sum fordata_ret_sum, const bam_func_destroy destroy)
 {
 	BAM_TRACE("bam_list_foreach_ret_sum(list, fordata_ret_sum, destroy) {\n");
 
@@ -157,7 +212,7 @@ end:
 	return ret; // Should be NULL if destroy'd.
 }
 
-bam_list *bam_list_foreach_ret_list(bam_list * const list, const bam_fordata_ret_func fordata_ret, const bam_destroy_func destroy)
+bam_list *bam_list_foreach_ret_list(bam_list * const list, const bam_func_fordata_ret fordata_ret, const bam_func_destroy destroy)
 {
 	BAM_TRACE("bam_list_foreach_ret_list(list, fordata_ret, destroy) {\n");
 
@@ -210,7 +265,7 @@ end:
 	return ret; // Should be NULL if bam_list_destruct'd or bam_list_destroy'd.
 }
 
-void bam_list_fprint(FILE * stream, const bam_list *list, const bam_list_fprint_data_func fprint_data)
+void bam_list_fprint(FILE * stream, const bam_list *list, const bam_func_fprint_data fprint_data)
 {
 	BAM_TRACE("bam_list_fprint(stream, list, fprint_data) {\n");
 
@@ -227,7 +282,7 @@ void bam_list_fprint(FILE * stream, const bam_list *list, const bam_list_fprint_
 	BAM_TRACE("} //bam_list_fprint(stream, list, fprint_data)\n");
 }
 
-void bam_list_fprintln(FILE * stream, const bam_list *list, const bam_list_fprint_data_func fprint_data)
+void bam_list_fprintln(FILE * stream, const bam_list *list, const bam_func_fprint_data fprint_data)
 {
 	BAM_TRACE("bam_list_fprintln(stream, list, fprint_data) {\n");
 
@@ -349,7 +404,7 @@ void *bam_list_pop_node(bam_list **list, const int i)
 	return data;
 }
 
-void bam_list_print(const bam_list *list, const bam_list_print_data_func print_data)
+void bam_list_print(const bam_list *list, const bam_func_print_data print_data)
 {
 	BAM_TRACE("bam_list_print(list, print_data) {\n");
 
@@ -366,7 +421,7 @@ void bam_list_print(const bam_list *list, const bam_list_print_data_func print_d
 	BAM_TRACE("} //bam_list_print(list, print_data)\n");
 }
 
-void bam_list_println(const bam_list *list, const bam_list_print_data_func print_data)
+void bam_list_println(const bam_list *list, const bam_func_print_data print_data)
 {
 	BAM_TRACE("bam_list_println(list, print_data) {\n");
 
@@ -458,7 +513,7 @@ int bam_list_push_node(bam_list **list, const int i, void * const data)
 	return 1;
 }
 
-void bam_list_remove_back(bam_list **list, const bam_destroy_func destroy)
+void bam_list_remove_back(bam_list **list, const bam_func_destroy destroy)
 {
 	BAM_TRACE("bam_list_remove_back(list) {\n");
 
@@ -488,7 +543,7 @@ void bam_list_remove_back(bam_list **list, const bam_destroy_func destroy)
 	BAM_TRACE("} //bam_list_remove_back(list)\n");
 }
 
-void bam_list_remove_front(bam_list **list, const bam_destroy_func destroy)
+void bam_list_remove_front(bam_list **list, const bam_func_destroy destroy)
 {
 	BAM_TRACE("bam_list_remove_front(list) {\n");
 
@@ -511,7 +566,7 @@ void bam_list_remove_front(bam_list **list, const bam_destroy_func destroy)
 	BAM_TRACE("} //bam_list_remove_front(list)\n");
 }
 
-void bam_list_remove_node(bam_list **list, const int i, const bam_destroy_func destroy)
+void bam_list_remove_node(bam_list **list, const int i, const bam_func_destroy destroy)
 {
 	BAM_TRACE("bam_list_remove_node(list, i) {\n");
 

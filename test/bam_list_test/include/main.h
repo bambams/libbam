@@ -21,12 +21,15 @@
 #ifndef MAIN_H
 	#define MAIN_H
 
+	#include <bam/compare.h>
 	#include <bam/foo.h>
 	#include <bam/free.h>
+	#include <bam/func.h>
 	#include <bam/list.h>
 	#include <stdio.h>
 	#include <stdlib.h>
 
+bam_compare compare_int(void * const lhs, void * const rhs);
 void *get_foo_id(void *);
 int main(int, char *[]);
 void print_int(void * const);
