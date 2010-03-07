@@ -31,9 +31,9 @@ typedef struct bam_string__ bam_string;
     #include <bam/free.h>
 
 /*
-        * Intended to be a rich UTF-8 string type complete with modern
-        * functionality.
-        */
+ * Intended to be a rich UTF-8 string type complete with modern
+ * functionality.
+ */
 struct bam_string__
 {
     int capacity;

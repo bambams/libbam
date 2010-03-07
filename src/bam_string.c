@@ -20,4 +20,294 @@
 
 #include <bam/string.h>
 
+char * bam_string_as_cstr(
+        const bam_string * const str)
+{
+    char * cstr = 0;
+    int len;
+
+    assert(str != 0);
+
+    len = str->size;
+
+    cstr = (char *)malloc(sizeof(char) * (len + 1));
+
+    if(!cstr)
+        return 0;
+
+    strncpy(cstr, str->cstr, len);
+
+    return cstr;
+}
+
+bam_string * bam_string_concat(
+        bam_string * const,
+        const bam_string * const)
+{
+}
+
+bam_string * bam_string_concat_cstr(
+        bam_string * const,
+        const char * const)
+{
+}
+
+bam_string * bam_string_copy(
+        const bam_string * const)
+{
+}
+
+int bam_string_compare(
+        const bam_string * const,
+        const bam_string * const)
+{
+}
+
+int bam_string_compare_cstr(
+        const bam_string * const,
+        const char * const)
+{
+}
+
+int bam_string_contains(
+        const bam_string * const,
+        const bam_string * const)
+{
+}
+
+int bam_string_contains_cstr(
+        const bam_string * const,
+        const char * const)
+{
+}
+
+int bam_string_ends_with(
+        const bam_string * const,
+        const bam_string * const)
+{
+}
+
+int bam_string_ends_with_cstr(
+        const bam_string * const,
+        const char * const)
+{
+}
+
+int bam_string_equals(
+        const bam_string * const,
+        const bam_string * const)
+{
+}
+
+int bam_string_equals_cstr(
+        const bam_string * const,
+        const char * const)
+{
+}
+
+bam_string * bam_string_from_cstr(
+        bam_string * const,
+        const char * const)
+{
+}
+
+char bam_string_getchar(
+        const bam_string * const,
+        const int)
+{
+}
+
+int bam_string_index_of(
+        const bam_string * const,
+        const bam_string * const)
+{
+}
+
+int bam_string_index_of_cstr(
+        const bam_string * const,
+        const char * const)
+{
+}
+
+int bam_string_is_empty(
+        const bam_string * const)
+{
+}
+
+bam_string * bam_string_join(
+        const bam_string * const * const,
+        const bam_string * const)
+{
+}
+
+bam_string * bam_string_join_cstr(
+        const bam_string * const * const,
+        const char * const)
+{
+}
+
+int bam_string_last_index_of(
+        const bam_string * const,
+        const bam_string * const)
+{
+}
+
+int bam_string_last_index_of_cstr(
+        const bam_string * const,
+        const char * const)
+{
+}
+
+int bam_string_length(
+        const bam_string * const)
+{
+}
+
+bam_string * bam_string_ltrim(
+        bam_string * const)
+{
+}
+
+int bam_string_is_null_or_empty(
+        const bam_string * const)
+{
+}
+
+int bam_string_is_null_or_whitespace(
+        const bam_string * const)
+{
+}
+
+bam_string * bam_string_padleft(
+        bam_string * const,
+        const int,
+        const char)
+{
+}
+
+bam_string * bam_string_padright(
+        bam_string * const,
+        const int,
+        const char)
+{
+}
+
+bam_string * bam_string_remove(
+        bam_string * const,
+        const int,
+        const int)
+{
+}
+
+bam_string * bam_string_replace(
+        bam_string * const,
+        const bam_string * const)
+{
+}
+
+bam_string * bam_string_replace_cstr(
+        bam_string * const,
+        const char * const)
+{
+}
+
+bam_string * bam_string_rtrim(
+        bam_string * const)
+{
+}
+
+int bam_string_printf(
+        const bam_string * const,
+        ...)
+{
+}
+
+bam_string ** bam_string_split(
+        const bam_string * const,
+        const bam_string * const,
+        int * const)
+{
+}
+
+bam_string ** bam_string_split_cstr(
+        const bam_string * const,
+        const char * const,
+        int * const)
+{
+}
+
+bam_string * bam_string_setchar(
+        bam_string * const,
+        const int,
+        const char)
+{
+}
+
+int bam_string_sprintf(
+        bam_string * const,
+        const bam_string * const,
+        ...)
+{
+}
+
+int bam_string_sprintf_cstr(
+        bam_string * const,
+        const bam_string * const,
+        ...)
+{
+}
+
+int bam_string_starts_with(
+        const bam_string * const,
+        const bam_string * const)
+{
+}
+
+int bam_string_starts_with_cstr(
+        const bam_string * const,
+        const char * const)
+{
+}
+
+bam_string * bam_string_substr(
+        const bam_string * const,
+        const int,
+        const int)
+{
+}
+
+bam_string * bam_string_tolower(
+        bam_string * const)
+{
+}
+
+bam_string * bam_string_toupper(
+        bam_string * const)
+{
+}
+
+bam_string * bam_string_trim(
+        bam_string * const)
+{
+}
+
+int bam_string_vprintf(
+        const bam_string * const,
+        va_list)
+{
+}
+
+int bam_string_vsprintf(
+        bam_string * const,
+        const bam_string * const,
+        va_list)
+{
+}
+
+int bam_string_vsprintf_cstr(
+        bam_string * const,
+        const char * const,
+        va_list)
+{
+}
 
