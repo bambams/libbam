@@ -1,0 +1,19 @@
+libbam is a software library/framework. It is written C (currently) and
+reinvents a lot of wheels. It's probably not going to be overly useful to
+anyone else, but if it is then YAY! I'm basically using it as a way to
+learn about various structures and algorithms, as well as just library
+development in general. The dream is to eventually have a rich library
+comparable to what you typically get in modern high level languages. In
+particular, enough to do string and container operations from a higher
+level than typical C solutions are (C strings are fine, but they do leave
+much to be desired).
+
+Currently, the library consists of a semi-functioning singly-linked list
+(which may become a double-linked list, but that is yet to be
+determined), and a not at all functioning circular buffer. There are also
+various routines and function pointer types that are intended to be the
+foundation of the framework. My focus is on safety to make C a little
+easier to get "bug-free" (or close to it).
+
+There is obviously a long way to go. ^_^
+
