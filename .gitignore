@@ -1,3 +1,6 @@
+bam_circbuf_test
+bam_free_test
+bam_list_test
 lib
 obj
 
