@@ -25,7 +25,7 @@
 	#include <stdio.h>
 	#include <stdlib.h>
 
-int main(int, char *[]);
+int main(int, char * []);
 
 #endif
 

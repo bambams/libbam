@@ -37,16 +37,16 @@ typedef struct __bam_circbuf bam_circbuf;
 
 struct __bam_circbuf
 {
-	void *buf;
+	void * buf;
 	//int empty;
-	void *end;
+	void * end;
 	int size;
-	void *stage;
-	void *start;
+	void * stage;
+	void * start;
 };
 
-bam_circbuf *bam_circbuf_create(const int);
-bam_circbuf *bam_circbuf_create_staged(const int);
+bam_circbuf * bam_circbuf_create(const int);
+bam_circbuf * bam_circbuf_create_staged(const int);
 void bam_circbuf_destroy(bam_circbuf **);
 int bam_circbuf_empty(const bam_circbuf * const);
 int bam_circbuf_full(const bam_circbuf * const);

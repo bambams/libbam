@@ -22,9 +22,9 @@
 
 int bam_foo_last_id = -1;
 
-bam_foo *bam_foo_create(void)
+bam_foo * bam_foo_create(void)
 {
-	bam_foo *foo = (bam_foo *)malloc(sizeof(bam_foo));
+	bam_foo * foo = (bam_foo *)malloc(sizeof(bam_foo));
 
 	if(foo == NULL)
 		return NULL;
@@ -34,7 +34,7 @@ bam_foo *bam_foo_create(void)
 	return foo;
 }
 
-void bam_foo_destroy(bam_foo **foo)
+void bam_foo_destroy(bam_foo ** foo)
 {
 	assert(foo);
 

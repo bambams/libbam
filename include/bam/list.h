@@ -34,27 +34,27 @@ typedef struct __bam_list bam_list;
 
 struct __bam_list
 {
-	void *data;
-	bam_list *next;
+	void * data;
+	bam_list * next;
 };
 
-const bam_list *bam_list_back(const bam_list *);
-bam_list *bam_list_create(void * const);
+const bam_list * bam_list_back(const bam_list *);
+bam_list * bam_list_create(void * const);
 void bam_list_destroy(bam_list **);
 void bam_list_destruct(bam_list **, const bam_func_destroy);
 int bam_list_find_first_index(const bam_list * const, void * const, const bam_func_compare);
-bam_list *bam_list_find_first_node(const bam_list * const, void * const, const bam_func_compare);
+bam_list * bam_list_find_first_node(const bam_list * const, void * const, const bam_func_compare);
 int bam_list_find_last_index(const bam_list * const, void * const, const bam_func_compare);
-bam_list *bam_list_find_last_node(const bam_list * const, void * const, const bam_func_compare);
+bam_list * bam_list_find_last_node(const bam_list * const, void * const, const bam_func_compare);
 void bam_list_foreach(bam_list * const, const bam_func_fordata);
-void *bam_list_foreach_ret_sum(bam_list * const, const bam_func_fordata_ret_sum, const bam_func_destroy);
-bam_list *bam_list_foreach_ret_list(bam_list * const, const bam_func_fordata_ret, const bam_func_destroy);
+void * bam_list_foreach_ret_sum(bam_list * const, const bam_func_fordata_ret_sum, const bam_func_destroy);
+bam_list * bam_list_foreach_ret_list(bam_list * const, const bam_func_fordata_ret, const bam_func_destroy);
 void bam_list_fprint(FILE *, const bam_list *, const bam_func_fprint_data);
 void bam_list_fprintln(FILE *, const bam_list *, const bam_func_fprint_data);
-const bam_list *bam_list_node(const bam_list *, const int i);
-void *bam_list_pop_back(bam_list **);
-void *bam_list_pop_front(bam_list **);
-void *bam_list_pop_node(bam_list **, const int);
+const bam_list * bam_list_node(const bam_list *, const int i);
+void * bam_list_pop_back(bam_list **);
+void * bam_list_pop_front(bam_list **);
+void * bam_list_pop_node(bam_list **, const int);
 void bam_list_print(const bam_list *, const bam_func_print_data);
 void bam_list_println(const bam_list *, const bam_func_print_data);
 int bam_list_push_back(bam_list *, void * const);

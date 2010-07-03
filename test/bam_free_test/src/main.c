@@ -20,9 +20,9 @@
 
 #include <main.h>
 
-int main(int argc, char *argv[])
+int main(int argc, char * argv[])
 {
-	int *x = NULL;
+	int * x = NULL;
 
 	x = (int *)malloc(sizeof(int));
 

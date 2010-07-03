@@ -20,9 +20,9 @@
 
 #include <bam/circbuf.h>
 
-bam_circbuf *bam_circbuf_create(const int size)
+bam_circbuf * bam_circbuf_create(const int size)
 {
-	bam_circbuf *cbuf = (bam_circbuf *)malloc(sizeof(bam_circbuf));
+	bam_circbuf * cbuf = (bam_circbuf *)malloc(sizeof(bam_circbuf));
 
 	if(cbuf == NULL)
 		goto error;
@@ -53,9 +53,9 @@ error:
 	return NULL;
 }
 
-bam_circbuf *bam_circbuf_create_staged(const int size)
+bam_circbuf * bam_circbuf_create_staged(const int size)
 {
-	bam_circbuf *cbuf = bam_circbuf_create(size);
+	bam_circbuf * cbuf = bam_circbuf_create(size);
 
 	if(cbuf == NULL)
 		return NULL;
@@ -71,9 +71,9 @@ bam_circbuf *bam_circbuf_create_staged(const int size)
 	return cbuf;
 }
 
-void bam_circbuf_destroy(bam_circbuf **cbuf)
+void bam_circbuf_destroy(bam_circbuf ** cbuf)
 {
-	if(*cbuf == NULL)
+	if(* cbuf == NULL)
 		return;
 
 	bam_free(&((*cbuf)->buf));
@@ -235,7 +235,7 @@ int bam_circbuf_size(const bam_circbuf * const cbuf)
 	return cbuf->size;
 }
 
-void *bam_circbuf_stage(const bam_circbuf * const cbuf)
+void * bam_circbuf_stage(const bam_circbuf * const cbuf)
 {
 	assert(cbuf);
 

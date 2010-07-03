@@ -30,11 +30,11 @@
 	#include <stdlib.h>
 
 bam_compare compare_int(void * const lhs, void * const rhs);
-void *get_foo_id(void *);
-int main(int, char *[]);
+void * get_foo_id(void *);
+int main(int, char * []);
 void print_int(void * const);
 void print_int_ln(void * const);
-void *sum_int(void *, void * const);
+void * sum_int(void *, void * const);
 
 #endif
 

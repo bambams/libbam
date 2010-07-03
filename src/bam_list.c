@@ -20,7 +20,7 @@
 
 #include <bam/list.h>
 
-const bam_list *bam_list_back(const bam_list *list)
+const bam_list * bam_list_back(const bam_list * list)
 {
 	BAM_TRACE("bam_list_back(list) {\n");
 
@@ -34,11 +34,11 @@ const bam_list *bam_list_back(const bam_list *list)
 	return list;
 }
 
-bam_list *bam_list_create(void * const data)
+bam_list * bam_list_create(void * const data)
 {
 	BAM_TRACE("bam_list_create(data) {\n");
 
-	bam_list *list = (bam_list *)malloc(sizeof(bam_list));
+	bam_list * list = (bam_list *)malloc(sizeof(bam_list));
 
 	if(list == NULL)
 		return NULL;
@@ -51,12 +51,12 @@ bam_list *bam_list_create(void * const data)
 	return list;
 }
 
-void bam_list_destroy(bam_list **list)
+void bam_list_destroy(bam_list ** list)
 {
 	BAM_TRACE("bam_list_destroy(list) {\n");
 
-	bam_list *current = NULL;
-	bam_list *next = NULL;
+	bam_list * current = NULL;
+	bam_list * next = NULL;
 
 	assert(list);
 
@@ -74,12 +74,12 @@ void bam_list_destroy(bam_list **list)
 	BAM_TRACE("} //bam_list_destroy(list)\n");
 }
 
-void bam_list_destruct(bam_list **list, const bam_func_destroy destroy)
+void bam_list_destruct(bam_list ** list, const bam_func_destroy destroy)
 {
 	BAM_TRACE("bam_list_destruct(list, destroy) {\n");
 
-	bam_list *current = NULL;
-	bam_list *next = NULL;
+	bam_list * current = NULL;
+	bam_list * next = NULL;
 
 	assert(list);
 	assert(destroy);
@@ -104,7 +104,7 @@ int bam_list_find_first_index(const bam_list * const list, void * const data, co
     BAM_TRACE("bam_list_find_first_index(list, data, compare) {\n");
 
 	int i = 0;
-	const bam_list *current = NULL;
+	const bam_list * current = NULL;
 
 	assert(list);
 	assert(compare);
@@ -127,11 +127,11 @@ end:
 	return i;
 }
 
-bam_list *bam_list_find_first_node(const bam_list * const list, void * const data, const bam_func_compare compare)
+bam_list * bam_list_find_first_node(const bam_list * const list, void * const data, const bam_func_compare compare)
 {
     BAM_TRACE("bam_list_find_first_node(list, data, compare) {\n");
 
-	const bam_list *current = NULL;
+	const bam_list * current = NULL;
 
 	assert(list);
 	assert(compare);
@@ -156,7 +156,7 @@ int bam_list_find_last_index(const bam_list * const list, void * const data, con
 
 	int i = -1;
 	int j = 0;
-	const bam_list *current = NULL;
+	const bam_list * current = NULL;
 
 	assert(list);
 	assert(compare);
@@ -181,8 +181,8 @@ bam_list *bam_list_find_last_node(const bam_list * const list, void * const data
 {
     BAM_TRACE("bam_list_find_last_node(list, data, compare) {\n");
 
-	const bam_list *current = NULL;
-	const bam_list *match = NULL;
+	const bam_list * current = NULL;
+	const bam_list * match = NULL;
 
 	assert(list);
 	assert(compare);
@@ -206,8 +206,8 @@ void bam_list_foreach(bam_list * const list, const bam_func_fordata fordata)
 {
 	BAM_TRACE("bam_list_foreach(list, fordata) {\n");
 
-	bam_list *current = NULL;
-	bam_list *next = NULL;
+	bam_list * current = NULL;
+	bam_list * next = NULL;
 
 	assert(list);
 	assert(fordata);
@@ -228,8 +228,8 @@ void *bam_list_foreach_ret_sum(bam_list * const list, const bam_func_fordata_ret
 {
 	BAM_TRACE("bam_list_foreach_ret_sum(list, fordata_ret_sum, destroy) {\n");
 
-	bam_list *current = NULL;
-	bam_list *next = NULL;
+	bam_list * current = NULL;
+	bam_list * next = NULL;
 	void *ret = NULL;
 
 	assert(list);
@@ -260,14 +260,14 @@ end:
 	return ret; // Should be NULL if destroy'd.
 }
 
-bam_list *bam_list_foreach_ret_list(bam_list * const list, const bam_func_fordata_ret fordata_ret, const bam_func_destroy destroy)
+bam_list * bam_list_foreach_ret_list(bam_list * const list, const bam_func_fordata_ret fordata_ret, const bam_func_destroy destroy)
 {
 	BAM_TRACE("bam_list_foreach_ret_list(list, fordata_ret, destroy) {\n");
 
-	bam_list *current = NULL;
-	void *data = NULL;
-	bam_list *next = NULL;
-	bam_list *ret = NULL;
+	bam_list * current = NULL;
+	void * data = NULL;
+	bam_list * next = NULL;
+	bam_list * ret = NULL;
 
 	assert(list);
 	assert(fordata_ret);
@@ -313,7 +313,7 @@ end:
 	return ret; // Should be NULL if bam_list_destruct'd or bam_list_destroy'd.
 }
 
-void bam_list_fprint(FILE * stream, const bam_list *list, const bam_func_fprint_data fprint_data)
+void bam_list_fprint(FILE * stream, const bam_list * list, const bam_func_fprint_data fprint_data)
 {
 	BAM_TRACE("bam_list_fprint(stream, list, fprint_data) {\n");
 
@@ -330,7 +330,7 @@ void bam_list_fprint(FILE * stream, const bam_list *list, const bam_func_fprint_
 	BAM_TRACE("} //bam_list_fprint(stream, list, fprint_data)\n");
 }
 
-void bam_list_fprintln(FILE * stream, const bam_list *list, const bam_func_fprint_data fprint_data)
+void bam_list_fprintln(FILE * stream, const bam_list * list, const bam_func_fprint_data fprint_data)
 {
 	BAM_TRACE("bam_list_fprintln(stream, list, fprint_data) {\n");
 
@@ -340,7 +340,7 @@ void bam_list_fprintln(FILE * stream, const bam_list *list, const bam_func_fprin
 	BAM_TRACE("} //bam_list_fprintln(stream, list, fprint_data)\n");
 }
 
-const bam_list *bam_list_node(const bam_list *list, const int i)
+const bam_list * bam_list_node(const bam_list * list, const int i)
 {
 	BAM_TRACE("bam_list_node(list, i) {\n");
 
@@ -358,13 +358,13 @@ const bam_list *bam_list_node(const bam_list *list, const int i)
 	return list;
 }
 
-void *bam_list_pop_back(bam_list **list)
+void *bam_list_pop_back(bam_list ** list)
 {
 	BAM_TRACE("bam_list_pop_back(list) {\n");
 
-	bam_list *current = NULL;
-	void *data = NULL;
-	bam_list *previous = NULL;
+	bam_list * current = NULL;
+	void * data = NULL;
+	bam_list * previous = NULL;
 
 	assert(list);
 
@@ -391,11 +391,11 @@ void *bam_list_pop_back(bam_list **list)
 	return data;
 }
 
-void *bam_list_pop_front(bam_list **list)
+void * bam_list_pop_front(bam_list ** list)
 {
 	BAM_TRACE("bam_list_pop_front(list) {\n");
 
-	void *data = NULL;
+	void * data = NULL;
 
 	assert(list);
 
@@ -414,14 +414,14 @@ void *bam_list_pop_front(bam_list **list)
 	return data;
 }
 
-void *bam_list_pop_node(bam_list **list, const int i)
+void * bam_list_pop_node(bam_list ** list, const int i)
 {
 	BAM_TRACE("bam_list_pop_node(list) {\n");
 
-	bam_list *current = NULL;
-	void *data = NULL;
+	bam_list * current = NULL;
+	void * data = NULL;
 	int j;
-	bam_list *previous = NULL;
+	bam_list * previous = NULL;
 
 	assert(list);
 	assert(i >= 0);
@@ -452,7 +452,7 @@ void *bam_list_pop_node(bam_list **list, const int i)
 	return data;
 }
 
-void bam_list_print(const bam_list *list, const bam_func_print_data print_data)
+void bam_list_print(const bam_list * list, const bam_func_print_data print_data)
 {
 	BAM_TRACE("bam_list_print(list, print_data) {\n");
 
@@ -469,7 +469,7 @@ void bam_list_print(const bam_list *list, const bam_func_print_data print_data)
 	BAM_TRACE("} //bam_list_print(list, print_data)\n");
 }
 
-void bam_list_println(const bam_list *list, const bam_func_print_data print_data)
+void bam_list_println(const bam_list * list, const bam_func_print_data print_data)
 {
 	BAM_TRACE("bam_list_println(list, print_data) {\n");
 
@@ -479,12 +479,12 @@ void bam_list_println(const bam_list *list, const bam_func_print_data print_data
 	BAM_TRACE("} //bam_list_println(list, print_data)\n");
 }
 
-int bam_list_push_back(bam_list *list, void * const data)
+int bam_list_push_back(bam_list * list, void * const data)
 {
 	BAM_TRACE("bam_list_push_back(list, data) {\n");
 
-	bam_list *next = NULL;
-	bam_list *node = NULL;
+	bam_list * next = NULL;
+	bam_list * node = NULL;
 
 	assert(list);
 
@@ -501,11 +501,11 @@ int bam_list_push_back(bam_list *list, void * const data)
 	return 1;
 }
 
-int bam_list_push_front(bam_list **list, void * const data)
+int bam_list_push_front(bam_list ** list, void * const data)
 {
 	BAM_TRACE("bam_list_push_front(list, data) {\n");
 
-	bam_list *node = NULL;
+	bam_list * node = NULL;
 
 	assert(list);
 	assert(*list);
@@ -522,14 +522,14 @@ int bam_list_push_front(bam_list **list, void * const data)
 	return 1;
 }
 
-int bam_list_push_node(bam_list **list, const int i, void * const data)
+int bam_list_push_node(bam_list ** list, const int i, void * const data)
 {
 	BAM_TRACE("bam_list_push_node(list, data) {\n");
 
 	int j;
-	bam_list *current = NULL;
-	bam_list *node = NULL;
-	bam_list *previous = NULL;
+	bam_list * current = NULL;
+	bam_list * node = NULL;
+	bam_list * previous = NULL;
 
 	assert(list);
 	assert(*list);
@@ -561,12 +561,12 @@ int bam_list_push_node(bam_list **list, const int i, void * const data)
 	return 1;
 }
 
-void bam_list_remove_back(bam_list **list, const bam_func_destroy destroy)
+void bam_list_remove_back(bam_list ** list, const bam_func_destroy destroy)
 {
 	BAM_TRACE("bam_list_remove_back(list) {\n");
 
-	bam_list *current = NULL;
-	bam_list *previous = NULL;
+	bam_list * current = NULL;
+	bam_list * previous = NULL;
 
 	assert(list);
 
@@ -591,11 +591,11 @@ void bam_list_remove_back(bam_list **list, const bam_func_destroy destroy)
 	BAM_TRACE("} //bam_list_remove_back(list)\n");
 }
 
-void bam_list_remove_front(bam_list **list, const bam_func_destroy destroy)
+void bam_list_remove_front(bam_list ** list, const bam_func_destroy destroy)
 {
 	BAM_TRACE("bam_list_remove_front(list) {\n");
 
-	bam_list *current = NULL;
+	bam_list * current = NULL;
 
 	assert(list);
 
@@ -614,13 +614,13 @@ void bam_list_remove_front(bam_list **list, const bam_func_destroy destroy)
 	BAM_TRACE("} //bam_list_remove_front(list)\n");
 }
 
-void bam_list_remove_node(bam_list **list, const int i, const bam_func_destroy destroy)
+void bam_list_remove_node(bam_list ** list, const int i, const bam_func_destroy destroy)
 {
 	BAM_TRACE("bam_list_remove_node(list, i) {\n");
 
 	int j;
-	bam_list *current = NULL;
-	bam_list *previous = NULL;
+	bam_list * current = NULL;
+	bam_list * previous = NULL;
 
 	assert(list);
 
@@ -647,7 +647,7 @@ void bam_list_remove_node(bam_list **list, const int i, const bam_func_destroy d
 	BAM_TRACE("} //bam_list_remove_node(list, i)\n");
 }
 
-int bam_list_size(const bam_list *list)
+int bam_list_size(const bam_list * list)
 {
 	BAM_TRACE("bam_list_size(list) {\n");
 

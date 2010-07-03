@@ -35,7 +35,7 @@ struct __bam_foo
 
 extern int bam_foo_last_id;
 
-bam_foo *bam_foo_create(void);
+bam_foo * bam_foo_create(void);
 void bam_foo_destroy(bam_foo **);
 void bam_foo_print(const bam_foo * const);
 

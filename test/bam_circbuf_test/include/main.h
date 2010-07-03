@@ -26,7 +26,7 @@
 	#include <stdio.h>
 	#include <stdlib.h>
 
-int main(int, char *[]);
+int main(int, char * []);
 void print_circbuf(const bam_circbuf * const);
 
 #endif

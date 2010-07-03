@@ -20,7 +20,7 @@
 
 #include <bam/free.h>
 
-void bam_free(void **ptrptr)
+void bam_free(void ** ptrptr)
 {
 	assert(ptrptr);
 

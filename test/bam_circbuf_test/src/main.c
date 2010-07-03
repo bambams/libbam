@@ -41,7 +41,7 @@
 #define ERRMSG_LEN 255
 #define ERRMSG_SIZE 256
 
-int main(int argc, char *argv[])
+int main(int argc, char * argv[])
 {
 	const char NUL = '\0';
 	const int CBUF_SIZE = 50;
@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 	int status = EXIT_SUCCESS;
 	char errmsg[ERRMSG_SIZE];
 	char buf[BUF_SIZE];
-	bam_circbuf *cbuf = bam_circbuf_create(CBUF_SIZE);
+	bam_circbuf * cbuf = bam_circbuf_create(CBUF_SIZE);
 
 	buf[BUF_LEN] = NUL;
 	memset(errmsg, 0, ERRMSG_SIZE);
